@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<script src="//cdn.jsdelivr.net/npm/phaser@3.17.0/dist/phaser.js"></script>
+<style>
+body {
+  margin: 0;
+}
+</style>
+<script>
+var mainScene = new Phaser.Scene();
+
+mainScene.preload = function() {
+  // 地面画像の読み込み
+  this.load.image('ground', 'assets/images/ground3.png');
+  // キャノン画像の読み込み
+  this.load.image('cannon', 'assets/images/cannon.png');
+  // ミサイル画像の読み込み
+  this.load.image('missile', 'assets/images/missile.png');
+  // 爆弾画像の読み込み
+  this.load.image('bomb', 'assets/images/bomb.png');
+};
+
+mainScene.create = function() {
+  // 背景色の設定
+  this.cameras.main.setBackgroundColor('#99CCFF');
+
+  // 地面作成（物理エンジン対象ではなく、背景となる地面）
+  this.createGround();
+  
+  // キャノンの作成
+  this.createCannon();
+  
+  // スペースキーでミサイル発射
+  
+  
+  // ミサイルグループの作成
+  
+  
+  // 爆弾グループの作成
+  
+  
+  // タイマー処理で1秒ごとに爆弾の作成
+  
+  
+  
+  
+};
+
+mainScene.update = function() {
+  var speed = 600;
+  
+  var cursors = this.input.keyboard.createCursorKeys();
+  if(cursors.right.isDown) {
+    // 右に移動
+    this.cannon.setVelocityX(speed);
+  } else if(cursors.left.isDown) {
+    // 左に移動
+    this.cannon.setVelocityX(-speed);
+  } else {
+    // 移動停止
+    this.cannon.setVelocityX(0);
+  }
+};
+
+mainScene.createGround = function() {
+  // 物理エンジンではなく背景としての地面を作成
+  var map01Group = this.add.group({
+    key: 'ground',
+    frameQuantity: 192
+  });
+  Phaser.Actions.GridAlign(map01Group.getChildren(), {
+    width: 16,
+    height: 12,
+    cellWidth: 50,
+    cellHeight: 50,
+    x: 25,
+    y: 25
+  });
+};
+
+mainScene.createCannon = function() {
+  // キャノンを作成する
+  this.cannon = this.physics.add.image(400, 575, 'cannon');
+  this.cannon.setDisplaySize(70, 70);
+  this.cannon.setCollideWorldBounds(true);
+};
+
+mainScene.createMissileGroup = function() {
+  // ミサイルグループを作成する
+  
+  
+  
+};
+
+mainScene.createMissile = function() {
+  // キャノンが発射するミサイルを作成する
+  
+  
+  
+};
+
+mainScene.createBombGroup = function() {
+  // 爆弾グループを作成する
+  
+  
+  
+};
+
+mainScene.createBomb = function() {
+  // タイマー処理で実行する爆弾を作成する
+  
+  
+  
+};
+
+mainScene.hitBomb = function(bomb, missile) {
+  // 爆弾とミサイルが衝突したときの処理
+  
+  
+  
+};
+
+var config = {
+  type: Phaser.AUTO,
+  width: 800,
+  height: 600,
+  physics: {
+    default: 'arcade',
+    arcade: {
+      gravity: { y: 300 },
+      debug: false,
+    }
+  },
+  scene: [mainScene],
+};
+var game = new Phaser.Game(config);
+</script>
+</head>
+<body>
+</body>
+</html>
